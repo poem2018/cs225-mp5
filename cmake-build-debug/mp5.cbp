@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="mp5"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mp5">
+				<Option output="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/mp5" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/."/>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225"/>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/catch"/>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/lodepng"/>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/util"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 mp5"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mp5/fast">
+				<Option output="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/mp5" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/."/>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225"/>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/catch"/>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/lodepng"/>
+					<Add directory="/Users/laphets/Desktop/CS225/cs225sp19/mp5/util"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 mp5/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/laphets/Desktop/CS225/cs225sp19/mp5/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/HSLAPixel.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/HSLAPixel.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/PNG.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/PNG.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/RGB_HSL.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/lodepng/lodepng.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/cs225/lodepng/lodepng.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/kdtree.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/main.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/maptiles.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/maptiles.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/mosaiccanvas.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/mosaiccanvas.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/point.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/sourceimage.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/sourceimage.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/tileimage.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/tileimage.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/util/coloredout.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/util/coloredout.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/util/no_sort.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/util/util.cpp">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/util/util.h">
+			<Option target="mp5"/>
+		</Unit>
+		<Unit filename="/Users/laphets/Desktop/CS225/cs225sp19/mp5/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
