@@ -66,9 +66,9 @@ template <int Dim>
 Point<Dim> quickSelect(const vector<Point<Dim>>& pList, int start, int end, int k, int d) {
     while(start<=end) {
         int parIdx = partition(pList, start, end, d);
-        if(k-1 == parIdx)
+        if(start+k == parIdx)
             return pList[parIdx];
-        else if (k-1 < parIdx)
+        else if (start+k < parIdx)
             end = parIdx-1;
         else
             start = parIdx+1;
