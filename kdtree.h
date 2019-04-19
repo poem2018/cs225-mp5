@@ -260,6 +260,7 @@ class KDTree
     /**
      * @todo Add your helper functions here.
      */
+    void KDTreeBuild(KDTreeNode*& subroot, const vector<Point<Dim>>& newPoints, int a, int b, int d);
 };
 
 #include "kdtree.cpp"
