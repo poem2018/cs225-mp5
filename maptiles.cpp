@@ -20,8 +20,26 @@ MosaicCanvas* mapTiles(SourceImage const& theSource,
     /**
      * @todo Implement this function!
      */
+    // First, use theTiles to build up the KDTree
+    vector<Point<3>> treePoints;
+    map<Point<3>, int> tile_avg_map;
+    for(unsigned i=0; i<theTiles.size(); i++) {
+        auto tileImage = theTiles[i];
+        auto tilePoint = convertToLAB(tileImage.getAverageColor());
+        tile_avg_map[tilePoint] = i;
+        treePoints.push_back(tilePoint);
+    }
 
-    return NULL;
+    KDTree<3> tree(treePoints);
+
+    MosaicCanvas* canvas = new MosaicCanvas(theSource.getRows(), theSource.getColumns());
+    for(int row = 0; row < theSource.getRows(); row++)
+        for(int col = 0; col < theSource.getColumns(); col++) {
+            TileImage* tile = get_match_at_idx(tree, tile_avg_map, theTiles, theSource, row, col);
+            canvas->setTile(row, col, tile);
+        }
+
+    return canvas;
 }
 
 TileImage* get_match_at_idx(const KDTree<3>& tree,
