@@ -16,7 +16,9 @@ bool KDTree<Dim>::smallerDimVal(const Point<Dim>& first,
     /**
      * @todo Implement this function!
      */
-    return first.vals[curDim]<second.vals[curDim];
+     if(first.vals[curDim] != second.vals[curDim])
+        return first.vals[curDim]<second.vals[curDim];
+     return first<second;
 }
 
 template <int Dim>
@@ -33,8 +35,9 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
         pEuc += (potential.vals[i]-target.vals[i])*(potential.vals[i]-target.vals[i]);
         curEuc += (currentBest.vals[i]-target.vals[i])*(currentBest.vals[i]-target.vals[i]);
     }
-
-    return pEuc < curEuc;
+    if(pEuc != curEuc)
+        return pEuc < curEuc;
+    return potential<currentBest;
 }
 
 template <int Dim>
