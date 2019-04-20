@@ -16,9 +16,18 @@ bool KDTree<Dim>::smallerDimVal(const Point<Dim>& first,
     /**
      * @todo Implement this function!
      */
-     if(first.vals[curDim] != second.vals[curDim])
-        return first.vals[curDim]<second.vals[curDim];
+     if(first[curDim] != second[curDim])
+        return first[curDim]<second[curDim];
      return first<second;
+}
+
+template <int Dim>
+double KDTree<Dim>::calcEucDis(const Point<Dim> &current, const Point<Dim> &target) const {
+    double ans = 0;
+    for(int i=0; i<Dim; i++) {
+        ans+=(current[i]-target[i])*(current[i]-target[i]);
+    }
+    return ans;
 }
 
 template <int Dim>
@@ -29,32 +38,34 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
     /**
      * @todo Implement this function!
      */
-    // First work out the Euclidean distance
-    double pEuc = 0, curEuc;
-    for(int i=0; i<Dim; i++) {
-        pEuc += (potential.vals[i]-target.vals[i])*(potential.vals[i]-target.vals[i]);
-        curEuc += (currentBest.vals[i]-target.vals[i])*(currentBest.vals[i]-target.vals[i]);
-    }
+    // First let's work out the Euclidean distance
+    double pEuc = calcEucDis(potential, target), curEuc = calcEucDis(currentBest, target);
     if(pEuc != curEuc)
         return pEuc < curEuc;
     return potential<currentBest;
 }
 
 template <int Dim>
-int partition(const vector<Point<Dim>>& pList, int start, int end, int d) {
-    if(start==end)
-        return start;
-    Point<Dim> pivot = pList[start];
-    while(start < end) {
-        while(start < end && pList[end].vals[d] > pivot.vals[d])
-            end--;
-        pList[start] = pList[end];
-        while(start < end && pList[start].vals[d] < pivot.vals[d])
-            start++;
-        pList[end] = pList[start];
+void pSwap(Point<Dim>& p1, Point<Dim>&p2) {
+    Point<Dim> tmp = p1;
+    p1 = p2;
+    p2 = tmp;
+}
+
+template <int Dim>
+int KDTree<Dim>::partition(vector<Point<Dim>>& pList, int start, int end, int d) {
+    int pivotIndex = (start+end)/2;
+    Point<Dim> pivotVal = pList[pivotIndex];
+    pSwap(pList[pivotIndex], pList[end]);
+    int storeIndex = start;
+    for(int i=start; i<end; i++) {
+        if(smallerDimVal(pList[i], pivotVal, d)) {
+            pSwap(pList[storeIndex], pList[i]);
+            storeIndex++;
+        }
     }
-    pList[start] = pivot;
-    return start;
+    pSwap(pList[end], pList[storeIndex]);
+    return storeIndex;
 }
 
 /**
@@ -67,17 +78,17 @@ int partition(const vector<Point<Dim>>& pList, int start, int end, int d) {
  * @return
  */
 template <int Dim>
-Point<Dim> quickSelect(const vector<Point<Dim>>& pList, int start, int end, int k, int d) {
-    while(start<=end) {
+Point<Dim> KDTree<Dim>::quickSelect(vector<Point<Dim>>& pList, int start, int end, int k, int d) {
+    while(start!=end) {
         int parIdx = partition(pList, start, end, d);
-        if(start+k == parIdx)
+        if(k == parIdx)
             return pList[parIdx];
-        else if (start+k < parIdx)
+        else if (k < parIdx)
             end = parIdx-1;
         else
             start = parIdx+1;
     }
-    return Point<Dim>();
+    return pList[start];
 }
 
 template <int Dim>
@@ -95,14 +106,15 @@ KDTree<Dim>::KDTree(const vector<Point<Dim>>& newPoints)
      *
      */
      root=NULL;
-    KDTreeBuild(root, newPoints, 0, newPoints.size()-1, 0);
+     auto newPointsCopy = newPoints;
+    KDTreeBuild(root, newPointsCopy, 0, newPointsCopy.size()-1, 0);
 }
 
 template <int Dim>
-void KDTree<Dim>::KDTreeBuild(KDTreeNode*& subroot, const vector<Point<Dim>> &newPoints, int a, int b, int d) {
+void KDTree<Dim>::KDTreeBuild(KDTreeNode*& subroot, vector<Point<Dim>> &newPoints, int a, int b, int d) {
     if(a>b)
         return;
-    Point<Dim> median = quickSelect(newPoints, a, b, (b-a)/2, d);
+    Point<Dim> median = quickSelect(newPoints, a, b, (a+b)/2, d);
     if(subroot == NULL) {
         subroot = new KDTreeNode(median);
     } else {
@@ -170,7 +182,62 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim>& query) const
     /**
      * @todo Implement this function!
      */
-
-    return Point<Dim>();
+    /**
+     * 1. First find the matching leaf node
+     * 2. back traversal to check for other nodes
+     */
+    return findNearestNeighbor_(query, root, 0);
 }
 
+template <int Dim>
+Point<Dim> KDTree<Dim>::findNearestNeighbor_(const Point<Dim> &query, const KDTree<Dim>::KDTreeNode *subroot, int d) const {
+    Point<Dim> currentBest;
+    if(smallerDimVal(query, subroot->point, d)) {
+        // If on d, target is smaller than current node, then should be on left subtree
+        if(subroot->left == NULL) {
+            // No child on left, we are done
+            return subroot->point;
+        }
+        currentBest = findNearestNeighbor_(query, subroot->left, (d+1)%Dim);
+    } else {
+        // be on right subtree
+        if(subroot->right == NULL) {
+            // No right child, we are done
+            return subroot->point;
+        }
+        currentBest = findNearestNeighbor_(query, subroot->right, (d+1)%Dim);
+    }
+    if(shouldReplace(query, currentBest, subroot->point)) {
+        // Current subroot is better
+        currentBest = subroot->point;
+    }
+
+    // Then work on the subtree of another side plane
+
+    // The condition whether work out another subtree?
+    // (val1[d]-val2[d])**2 <= radis
+
+    double radis = calcEucDis(query, currentBest);
+    double panelD = (query[d]-subroot->point[d])*(query[d]-subroot->point[d]);
+
+    if(panelD <= radis) {
+        // We need do some searchings here
+        if(smallerDimVal(query, subroot->point, d)) {
+            // We have searched left, now try right
+            if(subroot->right != NULL) {
+                auto subPoint = findNearestNeighbor_(query, subroot->right, (d+1)%Dim);
+                if(shouldReplace(query, currentBest, subPoint)) {
+                    currentBest = subPoint;
+                }
+            }
+        } else {
+            if(subroot->left != NULL) {
+                auto subPoint = findNearestNeighbor_(query, subroot->left, (d+1)%Dim);
+                if(shouldReplace(query, currentBest, subPoint)) {
+                    currentBest = subPoint;
+                }
+            }
+        }
+    }
+    return currentBest;
+}

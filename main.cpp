@@ -2,6 +2,7 @@
 #include <set>
 #include <vector>
 
+
 #include "cs225/PNG.h"
 #include "maptiles.h"
 #include "mosaiccanvas.h"
@@ -22,42 +23,137 @@ namespace opts
     bool help = false;
 }
 
+
+template <int K>
+void _test_linear_constructor(int size) {
+    vector<Point<K>> points;
+    points.reserve(size);
+    for (int i = 0; i < size; i++) {
+        Point<K> p;
+        for (int j = 0; j < K; j++)
+            p[j] = i;
+        points.push_back(p);
+    }
+
+    KDTree<K> tree(points);
+
+    tree.printTree(cout);
+
+}
+
+template <int K>
+void _test_linear_nearestNeighbor(int size) {
+    vector<Point<K>> points;
+    points.reserve(size);
+    for (int i = 0; i < size; i++) {
+        Point<K> p;
+        for (int j = 0; j < K; j++)
+            p[j] = i;
+        points.push_back(p);
+    }
+
+    KDTree<K> tree(points);
+
+//    cout << tree.findNearestNeighbor(points[]) << endl;
+    for (int i = 0; i < size; i++) {
+        cout << tree.findNearestNeighbor(points[i]) << "  " << points[i] <<endl;
+    }
+}
+
+template <int Dim>
+class MineActionFAIL : public Point<Dim>::MineAction {
+public:
+    void onMine(const Point<Dim> & point) const {
+        // only fail if trigger is set;
+        // gets set after construction and before findNN call
+        if (trigger)
+            cout<<"The point " << point << " should not be visited during this query."<<endl;
+    }
+
+    bool trigger = false;
+};
+
+void testcase2() {
+    double coords[20][2] = {{84, 44},  // mine
+                            {74, 0},   // mine
+                            {54, 62},  // mine
+                            {59, 0},   // mine
+                            {34, 15},  // mine
+                            {42, 63},
+                            {96, 56},  // mine
+                            {44, 79},
+                            {44, 43},
+                            {28, 10},  // mine
+                            {60, 30},  // mine
+                            {88, 72},  // mine
+                            {75, 68},  // mine
+                            {43, 65},
+                            {48, 0},   // mine
+                            {14, 15},  // mine
+                            {49, 83},
+                            {51, 35},
+                            {95, 50},  // mine
+                            {82, 20}}; // mine
+    bool isMine[20] = {1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1};
+    double targetCoords[2] = {45, 59};
+    double expectedCoords[2] = {42, 63};
+
+
+    vector<Point<2>> points;
+    MineActionFAIL<2> action;
+    for (int i = 0; i < 20; ++i)
+        points.push_back(Point<2>(coords[i], isMine[i], &action));
+    Point<2> target(targetCoords);
+    Point<2> expected(expectedCoords);
+
+    KDTree<2> tree(points);
+
+    tree.printTree(cout);
+
+    action.trigger = true;
+    cout<<tree.findNearestNeighbor(target)<<endl;
+//    REQUIRE(tree.findNearestNeighbor(target) == expected);
+}
 int main(int argc, const char** argv)
 {
-    string inFile = "";
-    string tileDir = "mp5_pngs/";
-    string numTilesStr = "100";
-    string pixelsPerTileStr = "50";
-    string outFile = "mosaic.png";
-
-    OptionsParser optsparse;
-    optsparse.addArg(inFile);
-    optsparse.addArg(tileDir);
-    optsparse.addArg(numTilesStr);
-    optsparse.addArg(pixelsPerTileStr);
-    optsparse.addArg(outFile);
-    optsparse.addOption("help", opts::help);
-    optsparse.addOption("h", opts::help);
-    optsparse.parse(argc, argv);
-
-    if (opts::help) {
-        cout << "Usage: " << argv[0]
-             << " background_image.png tile_directory/ [number of tiles] "
-                "[pixels per tile] [output_image.png]"
-             << endl;
-        return 0;
-    }
-
-    if (inFile == "") {
-        cout << "Usage: " << argv[0]
-             << " background_image.png tile_directory/ [number of tiles] "
-                "[pixels per tile] [output_image.png]"
-             << endl;
-        return 1;
-    }
-
-    makePhotoMosaic(inFile, tileDir, lexical_cast<int>(numTilesStr),
-                    lexical_cast<int>(pixelsPerTileStr), outFile);
+//    testcase2();
+//    _test_linear_nearestNeighbor<1>(10);
+    _test_linear_constructor<1>(10);
+//    _test_linear_constructor<3>(31);
+//    string inFile = "";
+//    string tileDir = "mp5_pngs/";
+//    string numTilesStr = "100";
+//    string pixelsPerTileStr = "50";
+//    string outFile = "mosaic.png";
+//
+//    OptionsParser optsparse;
+//    optsparse.addArg(inFile);
+//    optsparse.addArg(tileDir);
+//    optsparse.addArg(numTilesStr);
+//    optsparse.addArg(pixelsPerTileStr);
+//    optsparse.addArg(outFile);
+//    optsparse.addOption("help", opts::help);
+//    optsparse.addOption("h", opts::help);
+//    optsparse.parse(argc, argv);
+//
+//    if (opts::help) {
+//        cout << "Usage: " << argv[0]
+//             << " background_image.png tile_directory/ [number of tiles] "
+//                "[pixels per tile] [output_image.png]"
+//             << endl;
+//        return 0;
+//    }
+//
+//    if (inFile == "") {
+//        cout << "Usage: " << argv[0]
+//             << " background_image.png tile_directory/ [number of tiles] "
+//                "[pixels per tile] [output_image.png]"
+//             << endl;
+//        return 1;
+//    }
+//
+//    makePhotoMosaic(inFile, tileDir, lexical_cast<int>(numTilesStr),
+//                    lexical_cast<int>(pixelsPerTileStr), outFile);
 
     return 0;
 }

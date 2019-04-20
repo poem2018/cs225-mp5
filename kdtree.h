@@ -260,11 +260,19 @@ class KDTree
     /**
      * @todo Add your helper functions here.
      */
-    void KDTreeBuild(KDTreeNode*& subroot, const vector<Point<Dim>>& newPoints, int a, int b, int d);
+    void KDTreeBuild(KDTreeNode*& subroot, vector<Point<Dim>>& newPoints, int a, int b, int d);
 
     KDTreeNode* copy_(const KDTreeNode* subroot);
 
     void clear_(KDTreeNode* subroot);
+
+    Point<Dim> findNearestNeighbor_(const Point<Dim>& query, const KDTreeNode* subroot, int d) const;
+
+    int partition(vector<Point<Dim>>& pList, int start, int end, int d);
+
+    Point<Dim> quickSelect(vector<Point<Dim>>& pList, int start, int end, int k, int d);
+
+    double calcEucDis(const Point<Dim>& current,const Point<Dim>& target) const;
 };
 
 #include "kdtree.cpp"
