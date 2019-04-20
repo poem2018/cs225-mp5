@@ -5,6 +5,7 @@
 
 #include <utility>
 #include <algorithm>
+#include "kdtree.h"
 
 using namespace std;
 
@@ -111,7 +112,7 @@ void KDTree<Dim>::KDTreeBuild(KDTreeNode*& subroot, const vector<Point<Dim>> &ne
 
 
 template <int Dim>
-KDTree<Dim>::KDTree(const KDTree& other) {
+KDTree<Dim>::KDTree(const KDTree& other) : root(copy_(other)), size(other.size) {
   /**
    * @todo Implement this function!
    */
@@ -122,15 +123,42 @@ const KDTree<Dim>& KDTree<Dim>::operator=(const KDTree& rhs) {
   /**
    * @todo Implement this function!
    */
-
+    if(&rhs != this) {
+        clear_(root);
+        size = rhs.size;
+        root = copy_(rhs.root);
+    }
   return *this;
 }
+
+template <int Dim>
+typename KDTree<Dim>::KDTreeNode* KDTree<Dim>::copy_(const KDTreeNode* subroot) {
+    if(subroot == NULL) {
+        return NULL;
+    }
+    KDTreeNode* newNode = new KDTreeNode(subroot);
+    newNode->left = copy_(subroot->left);
+    newNode->right = copy_(subroot->right);
+    return newNode;
+}
+
+template <int Dim>
+void KDTree<Dim>::clear_(KDTree<Dim>::KDTreeNode *subroot) {
+    if(subroot == NULL) {
+        return;
+    }
+    clear_(subroot->left);
+    clear_(subroot->right);
+    delete subroot;
+}
+
 
 template <int Dim>
 KDTree<Dim>::~KDTree() {
   /**
    * @todo Implement this function!
    */
+   clear_(root);
 }
 
 template <int Dim>

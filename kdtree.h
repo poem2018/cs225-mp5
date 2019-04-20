@@ -261,6 +261,10 @@ class KDTree
      * @todo Add your helper functions here.
      */
     void KDTreeBuild(KDTreeNode*& subroot, const vector<Point<Dim>>& newPoints, int a, int b, int d);
+
+    KDTreeNode* copy_(const KDTreeNode* subroot);
+
+    void clear_(KDTreeNode* subroot);
 };
 
 #include "kdtree.cpp"
