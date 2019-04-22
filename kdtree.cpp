@@ -9,6 +9,7 @@
 
 using namespace std;
 
+/** * This function judge if value in the first point is smaller than the second. if it is smaller, return true.**/
 template <int Dim>
 bool KDTree<Dim>::smallerDimVal(const Point<Dim>& first,
                                 const Point<Dim>& second, int curDim) const
@@ -21,6 +22,7 @@ bool KDTree<Dim>::smallerDimVal(const Point<Dim>& first,
      return first<second;
 }
 
+/** * This function calculate the distance between two points. **/
 template <int Dim>
 double KDTree<Dim>::calcEucDis(const Point<Dim> &current, const Point<Dim> &target) const {
     double ans = 0;
@@ -30,6 +32,7 @@ double KDTree<Dim>::calcEucDis(const Point<Dim> &current, const Point<Dim> &targ
     return ans;
 }
 
+/** * This function judge if the distance of target point is smaller than that of currentBest point **/
 template <int Dim>
 bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
                                 const Point<Dim>& currentBest,
@@ -45,6 +48,7 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
     return potential<currentBest;
 }
 
+/** * This function swap two points. **/
 template <int Dim>
 void pSwap(Point<Dim>& p1, Point<Dim>&p2) {
     Point<Dim> tmp = p1;
@@ -52,6 +56,9 @@ void pSwap(Point<Dim>& p1, Point<Dim>&p2) {
     p2 = tmp;
 }
 
+
+/** * This function partition the list and the standard is the middle point of original list. **/
+/** the result list is smaller points before the standard points, larger points behind the standard points**/
 template <int Dim>
 int KDTree<Dim>::partition(vector<Point<Dim>>& pList, int start, int end, int d) {
     int pivotIndex = (start+end)/2;
@@ -91,6 +98,7 @@ Point<Dim> KDTree<Dim>::quickSelect(vector<Point<Dim>>& pList, int start, int en
     return pList[start];
 }
 
+/** * This function buld a KDtree. **/
 template <int Dim>
 KDTree<Dim>::KDTree(const vector<Point<Dim>>& newPoints)
 {
@@ -110,6 +118,7 @@ KDTree<Dim>::KDTree(const vector<Point<Dim>>& newPoints)
     KDTreeBuild(root, newPointsCopy, 0, newPointsCopy.size()-1, 0);
 }
 
+/** * the helper function to build the KDtree. **/
 template <int Dim>
 void KDTree<Dim>::KDTreeBuild(KDTreeNode*& subroot, vector<Point<Dim>> &newPoints, int a, int b, int d) {
     if(a>b)
@@ -125,7 +134,7 @@ void KDTree<Dim>::KDTreeBuild(KDTreeNode*& subroot, vector<Point<Dim>> &newPoint
     KDTreeBuild(subroot->right, newPoints, m+1, b, (d+1)%Dim);
 }
 
-
+/** * the copy funtion. **/
 template <int Dim>
 KDTree<Dim>::KDTree(const KDTree& other) : root(copy_(other)), size(other.size) {
   /**
@@ -133,6 +142,7 @@ KDTree<Dim>::KDTree(const KDTree& other) : root(copy_(other)), size(other.size) 
    */
 }
 
+/** * overload the assign operator**/
 template <int Dim>
 const KDTree<Dim>& KDTree<Dim>::operator=(const KDTree& rhs) {
   /**
@@ -146,6 +156,7 @@ const KDTree<Dim>& KDTree<Dim>::operator=(const KDTree& rhs) {
   return *this;
 }
 
+/** *helper function of copy function. **/
 template <int Dim>
 typename KDTree<Dim>::KDTreeNode* KDTree<Dim>::copy_(const KDTreeNode* subroot) {
     if(subroot == NULL) {
@@ -157,6 +168,7 @@ typename KDTree<Dim>::KDTreeNode* KDTree<Dim>::copy_(const KDTreeNode* subroot) 
     return newNode;
 }
 
+/** helper function of destruct function. **/
 template <int Dim>
 void KDTree<Dim>::clear_(KDTree<Dim>::KDTreeNode *subroot) {
     if(subroot == NULL) {
@@ -167,7 +179,7 @@ void KDTree<Dim>::clear_(KDTree<Dim>::KDTreeNode *subroot) {
     delete subroot;
 }
 
-
+/** *destruct function. **/
 template <int Dim>
 KDTree<Dim>::~KDTree() {
   /**
@@ -176,6 +188,7 @@ KDTree<Dim>::~KDTree() {
    clear_(root);
 }
 
+/** * This function find the nearest point according to the giving point. **/
 template <int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim>& query) const
 {
@@ -189,6 +202,7 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim>& query) const
     return findNearestNeighbor_(query, root, 0);
 }
 
+/** * the helper function of findNearestNeighbor function. **/
 template <int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor_(const Point<Dim> &query, const KDTree<Dim>::KDTreeNode *subroot, int d) const {
     Point<Dim> currentBest;
